@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etherpad-deployment
+  labels:
+    app: etherpad
+  namespace: etherpad-space
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etherpad
+      name: etherpad-pod
+  template:
+    metadata:
+      name: etherpad-pod
+      labels:
+        app: etherpad
+        name: etherpad-pod
+    spec:
+      containers:
+        - image: etherpad/etherpad
+          name: etherpad-container
+          ports:
+            - protocol: TCP
+              containerPort: 9001
